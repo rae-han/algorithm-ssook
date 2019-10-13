@@ -17,9 +17,12 @@ rl.on('line', function (input) {
     inputLength++;
     if (squareSideLength === inputLength) {
       let result = resolve(square);
-      console.log(result)
+      if (result.length === 1) {
+        console.log(`(${result})`)
+      } else {
+        console.log(result)
+      }
 
-      process.exit();
       squareSideLength = 0;
       square = [];
     }
@@ -29,14 +32,14 @@ rl.on('line', function (input) {
   .on('close', function () {
     console.log('close')
     process.exit();
-  });
+});
 
 let resolve = (square) => {
   let length = square.length;
   loop: for (let x=0; x<length; x++) {
     for (let y=0; y<length; y++) {
       if (square[0][0] !== square[x][y]) {
-        return divideSqure(square)
+        return `(${divideSqure(square)})`
         break loop;
       }
     }
@@ -59,5 +62,5 @@ function divideSqure(square) {
   for (let t=0; t<tree.length; t++) {
     result += resolve(tree[t]);
   }
-  return `(${result})`;
+  return result;
 }
